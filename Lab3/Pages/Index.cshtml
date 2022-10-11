@@ -1,10 +1,35 @@
 ﻿@page
+@using Lab3.Models
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+	ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div>
+	<div style="text-align: left;">
+		<div>
+			@foreach (var order in (IEnumerable<Order>)ViewData["orders"])
+			{
+				Address address = order.Client.Address;
+
+				<div class="order">
+					<div>
+						Order by @order.Client.Firstname @order.Client.Surname @order.Client.Patronymic at @order.Date.Date
+					</div>
+					<div>
+						Address @address.City @address.Street street @address.HouseNumber : @address.FlatNumber
+					</div>
+					<div>
+						Pizzas:
+					</div>
+					<ol>
+						@foreach (var part in order.OrderParts)
+						{
+							<li>@part.Pizza.Description @part.Pizza.Price x @part.Count</li>
+						}
+					</ol>
+				</div>
+			}
+		</div>
+	</div>
 </div>

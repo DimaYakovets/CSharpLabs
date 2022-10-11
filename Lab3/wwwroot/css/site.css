@@ -16,3 +16,10 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.order {
+    border-radius: 4px;
+    background-color: #ddd;
+    padding: 8px;
+    margin-top: 16px;
+}

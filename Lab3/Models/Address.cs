@@ -3,13 +3,10 @@ using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 
-namespace Lab2
+namespace Lab3.Models
 {
     public partial class Address
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
         public string City { get; set; } 
         public string Street { get; set; }
         public int HouseNumber { get; set; }
