@@ -5,7 +5,7 @@ using Lab4.Models;
 
 namespace Lab4.Configurations
 {
-    public class OrderPartConfiguration : IEntityTypeConfiguration<OrderPart>
+    public sealed class OrderPartConfiguration : IEntityTypeConfiguration<OrderPart>
     {
         public void Configure(EntityTypeBuilder<OrderPart> builder)
         {

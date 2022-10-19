@@ -1,6 +1,6 @@
 ﻿namespace Lab4.Models;
 
-public partial class OrderPart
+public partial class OrderPart : IModel
 {
     public int Id { get; set; }
     public int OrderId { get; set; }

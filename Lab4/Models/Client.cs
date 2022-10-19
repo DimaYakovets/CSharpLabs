@@ -1,6 +1,6 @@
 ﻿namespace Lab4.Models;
 
-public partial class Client
+public partial class Client : IModel
 {
     public int Id { get; set; }
     public string Firstname { get; set; } 

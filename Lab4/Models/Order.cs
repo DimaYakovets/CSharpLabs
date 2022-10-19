@@ -1,6 +1,6 @@
 ﻿namespace Lab4.Models;
 
-public partial class Order
+public partial class Order : IModel
 {
     public int Id { get; set; }
     public DateTime Date { get; set; }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Lab4.Services
 {
-    public class Repository<TModel> : IRepository<TModel>
+    public sealed class Repository<TModel> : IRepository<TModel>
         where TModel : class, IModel
     {
         private readonly PizzaDeliveryContext _context;
@@ -31,7 +31,7 @@ namespace Lab4.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<TModel>> GetAllAsync(TModel entity)
+        public async Task<IEnumerable<TModel>> GetAllAsync()
         {
             return await _context.Set<TModel>().ToListAsync();
         }

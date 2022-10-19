@@ -5,7 +5,7 @@ using Lab4.Models;
 
 namespace Lab4.Configurations
 {
-    public class PizzaConfiguration : IEntityTypeConfiguration<Pizza>
+    public sealed class PizzaConfiguration : IEntityTypeConfiguration<Pizza>
     {
         public void Configure(EntityTypeBuilder<Pizza> builder)
         {

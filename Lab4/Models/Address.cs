@@ -1,6 +1,6 @@
 ﻿namespace Lab4.Models;
 
-public partial class Address
+public partial class Address : IModel
 {
     public int Id { get; set; }
     public string City { get; set; } 

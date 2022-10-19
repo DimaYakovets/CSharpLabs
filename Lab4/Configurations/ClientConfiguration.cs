@@ -5,7 +5,7 @@ using Lab4.Models;
 
 namespace Lab4.Configurations
 {
-    public class ClientConfiguration : IEntityTypeConfiguration<Client>
+    public sealed class ClientConfiguration : IEntityTypeConfiguration<Client>
     {
         public void Configure(EntityTypeBuilder<Client> builder)
         {

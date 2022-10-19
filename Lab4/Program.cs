@@ -9,7 +9,7 @@ builder.Services.AddDbContext<PizzaDeliveryContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-builder.Services.AddSingleton(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
 
 var app = builder.Build();
 

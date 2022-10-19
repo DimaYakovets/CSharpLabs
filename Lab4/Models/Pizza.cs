@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Lab4.Models;
 
-public partial class Pizza
+public partial class Pizza : IModel
 {
     public int Id { get; set; }
     public decimal Price { get; set; }
