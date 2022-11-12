@@ -1,0 +1,52 @@
+﻿@using Lab6.Services
+@using Lab6.Models
+
+@page "/Address/List"
+@namespace Lab6.Pages
+@inject IRepository<Address> _repo
+
+<h3>Address</h3>
+
+@if (_items == null)
+{
+	<div>Loading ...</div>
+}
+else
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>City</th>
+				<th>Street</th>
+				<th>HouseNumber</th>
+				<th>FlatNumber</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in _items)
+			{
+				<tr>
+					<td>@item.City</td>
+					<td>@item.Street</td>
+					<td>@item.HouseNumber</td>
+					<td>@item.FlatNumber</td>
+					<td>
+						<button class="btn btn-success">Edit</button>
+						<button class="btn btn-danger">Delete</button>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+
+@code {
+	private IEnumerable<Address>? _items;
+
+	protected override async Task OnInitializedAsync()
+	{
+		_items = await _repo.GetAllAsync();
+	}
+}
+
