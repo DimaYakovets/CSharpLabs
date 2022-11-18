@@ -1,0 +1,72 @@
+﻿@using Lab6.Services
+@using Lab6.Models
+@using Model = Lab6.Models.Address
+
+@page "/Address/Edit/{Id:int}"
+@namespace Lab6.Pages
+@inject IRepository<Model> _repo
+@inject NavigationManager _nav
+
+<h3>Edit</h3>
+
+<hr />
+
+@if (_model is null)
+{
+	<div>Loading ...</div>
+}
+else
+{
+	<div class="row">
+		<div class="col-md-4">
+			<EditForm Model="_model" OnValidSubmit="CreateModel">
+				<div class="from-group mb-3">
+					<lable for="city">City</lable>
+					<InputText @bind-Value="_model.City" class="form-control" id="city"></InputText>
+				</div>
+
+				<div class="from-group mb-3">
+					<lable for="street">Street</lable>
+					<InputText @bind-Value="_model.Street" class="form-control" id="street"></InputText>
+				</div>
+
+				<div class="from-group mb-3">
+					<lable for="houseNumber">House Number</lable>
+					<InputNumber @bind-Value="_model.HouseNumber" class="form-control" id="houseNumber"></InputNumber>
+				</div>
+
+				<div class="from-group mb-3">
+					<lable for="flatNumber">Flat Number</lable>
+					<InputNumber @bind-Value="_model.FlatNumber" class="form-control" id="flatNumber"></InputNumber>
+				</div>
+
+				<button class="btn btn-success" type="submit">Save</button>
+			</EditForm>
+		</div>
+	</div>
+}
+
+<hr />
+
+<div>
+	<a href="./@typeof(Model).Name/List" class="btn btn-info">Back to List</a>
+</div>
+
+@code {
+	[Parameter]
+	public int Id { get; set; }
+
+	private Model _model;
+
+	protected override async Task OnInitializedAsync()
+	{
+		_model = await _repo.GetAsync(Id);
+	}
+
+	private async Task CreateModel()
+	{
+		await _repo.UpdateAsync(Id, _model);
+
+		_nav.NavigateTo($"./{typeof(Model).Name}/Details/{Id}");
+	}
+}

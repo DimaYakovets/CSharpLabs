@@ -1,12 +1,15 @@
 ﻿@using Lab6.Services
 @using Lab6.Models
+@using Model = Lab6.Models.Address
 
 @page "/Address/List"
 @namespace Lab6.Pages
-@inject IRepository<Address> _repo
+@inject IRepository<Model> _repo
 
-<h3>Address</h3>
-
+<h3>@typeof(Model).Name</h3>
+<hr />
+<a class="btn btn-success" href="./@typeof(Model).Name/Create">New</a>
+<hr />
 @if (_items == null)
 {
 	<div>Loading ...</div>
@@ -32,8 +35,8 @@ else
 					<td>@item.HouseNumber</td>
 					<td>@item.FlatNumber</td>
 					<td>
-						<button class="btn btn-success">Edit</button>
-						<button class="btn btn-danger">Delete</button>
+						<a class="btn btn-info" href="./@typeof(Model).Name/Details/@item.Id">Details</a>
+						<button class="btn btn-danger" @onclick="() => DeleteModel(item.Id)">Delete</button>
 					</td>
 				</tr>
 			}
@@ -42,10 +45,17 @@ else
 }
 
 @code {
-	private IEnumerable<Address>? _items;
+	private IEnumerable<Model>? _items;
 
 	protected override async Task OnInitializedAsync()
 	{
+		_items = await _repo.GetAllAsync();
+	}
+
+	private async Task DeleteModel(int id)
+	{
+		await _repo.DeleteAsync(id);
+
 		_items = await _repo.GetAllAsync();
 	}
 }

@@ -1,0 +1,50 @@
+﻿@using Lab6.Services
+@using Lab6.Models
+@using Model = Lab6.Models.Order
+
+@page "/Order/Create"
+@namespace Lab6.Pages
+@inject IRepository<Model> _repo
+@inject NavigationManager _nav
+
+<h3>@typeof(Model).Name</h3>
+<h4>Create</h4>
+
+<hr />
+
+<div class="row">
+	<div class="col-md-4">
+		<EditForm Model="_model" OnValidSubmit="CreateModel">
+			<div class="from-group mb-3">
+				<lable for="firstname">Date</lable>
+				<InputDate @bind-Value="_model.Date" class="form-control" id="firstname"></InputDate>
+			</div>
+
+			<div class="from-group mb-3">
+				<lable for="street">Street</lable>
+				<InputSelect @bind-Value="_model.Client" class="form-control" id="street"></InputSelect>
+			</div>
+
+			<DataAnnotationsValidator/>
+			<ValidationSummary/>
+
+			<button class="btn btn-success" type="submit">Save</button>
+		</EditForm>
+	</div>
+</div>
+
+<hr />
+
+<div>
+	<a href="./@typeof(Model).Name/List" class="btn btn-info">Back to List</a>
+</div>
+
+@code {
+	private Model _model = new();
+
+	private async Task CreateModel()
+	{
+		await _repo.CreateAsync(_model);
+		_nav.NavigateTo($"./{typeof(Model).Name}/List");
+	}
+}

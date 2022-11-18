@@ -1,0 +1,51 @@
+﻿@using Lab6.Services
+@using Lab6.Models
+@using Model = Lab6.Models.Client
+
+@page "/Client/Details/{id:int}"
+@namespace Lab6.Pages
+@inject IRepository<Model> _repo
+
+<h3>Details</h3>
+
+<div>
+	<h4>@typeof(Model).Name</h4>
+	<hr />
+	@if (_model is null)
+	{
+		<div>Loading...</div>
+	}
+	else
+	{
+		<dl class="row">
+			<dt class="col-sm-10">
+				@_model.Firstname
+			</dt>
+			<dt class="col-sm-10">
+				@_model.Surname
+			</dt>
+			<dt class="col-sm-10">
+				@_model.Patronymic
+			</dt>
+			<dt class="col-sm-10">
+				@_model.Phone
+			</dt>
+		</dl>
+	}
+</div>
+<div>
+	<a class="btn btn-info" href="/@typeof(Model).Name/Edit/@_model?.Id">Edit</a> |
+	<a class="btn btn-info" href="/@typeof(Model).Name/List">Back to List</a>
+</div>
+
+@code {
+	[Parameter]
+	public int Id { get; set; }
+
+	private Model _model;
+
+	protected override async Task OnInitializedAsync()
+	{
+		_model = await _repo.GetAsync(Id);
+	}
+}

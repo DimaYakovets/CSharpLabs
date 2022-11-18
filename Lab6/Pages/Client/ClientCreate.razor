@@ -1,0 +1,65 @@
+﻿@using Lab6.Services
+@using Lab6.Models
+@using Model = Lab6.Models.Client
+
+@page "/Client/Create"
+@namespace Lab6.Pages
+@inject IRepository<Model> _repo
+@inject NavigationManager _nav
+
+<h3>Edit</h3>
+
+<h4>@typeof(Model).Name</h4>
+<hr />
+
+<div class="row">
+	<div class="col-md-4">
+		<EditForm Model="_model" OnValidSubmit="CreateModel">
+			<div class="from-group mb-3">
+				<lable for="firstname">Firstname</lable>
+				<InputText @bind-Value="_model.Firstname" class="form-control" id="firstname"></InputText>
+			</div>
+
+			<div class="from-group mb-3">
+				<lable for="street">Street</lable>
+				<InputText @bind-Value="_model.Surname" class="form-control" id="street"></InputText>
+			</div>
+
+			<div class="from-group mb-3">
+				<lable for="patronymic">Patronymic</lable>
+				<InputText @bind-Value="_model.Patronymic" class="form-control" id="patronymic"></InputText>
+			</div>
+
+			<div class="from-group mb-3">
+				<lable for="phone">Phone</lable>
+				<InputText @bind-Value="_model.Phone" class="form-control" id="phone"></InputText>
+			</div>
+
+			<div class="from-group mb-3">
+				<lable for="address">Address</lable>
+				<InputNumber @bind-Value="_model.AddressId" class="form-control" id="address"></InputNumber>
+			</div>
+
+			<DataAnnotationsValidator/>
+			<ValidationSummary/>
+
+			<button class="btn btn-success" type="submit">Save</button>
+		</EditForm>
+	</div>
+</div>
+
+<hr />
+
+<div>
+	<a href="./@typeof(Model).Name/List" class="btn btn-info">Back to List</a>
+</div>
+
+@code {
+	private Model _model = new();
+
+	private async Task CreateModel()
+	{
+		await _repo.CreateAsync(_model);
+		_nav.NavigateTo($"./{typeof(Model).Name}/List");
+	}
+}
