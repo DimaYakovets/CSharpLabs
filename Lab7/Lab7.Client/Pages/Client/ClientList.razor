@@ -1,0 +1,62 @@
+﻿@using Lab7.Client.Services
+@using Lab7.Models
+@using Model = Lab7.Models.Client
+
+@page "/Client/List"
+@namespace Lab7.Pages
+@inject IGenericClient<Model> _repo
+
+<h3>@typeof(Model).Name</h3>
+<hr />
+<a class="btn btn-success" href="./@typeof(Model).Name/Create">New</a>
+<hr />
+@if (_items == null)
+{
+	<div>Loading ...</div>
+}
+else
+{
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Firstname</th>
+				<th>Surname</th>
+				<th>Patronymic</th>
+				<th>Phone</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in _items)
+			{
+				<tr>
+					<td>@item.Firstname</td>
+					<td>@item.Surname</td>
+					<td>@item.Patronymic</td>
+					<td>@item.Phone</td>
+					<td>
+						<a class="btn btn-info" href="./@typeof(Model).Name/Details/@item.Id">Details</a>
+						<button class="btn btn-danger" @onclick="() => DeleteModel(item.Id)">Delete</button>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+
+@code {
+	private IEnumerable<Model>? _items;
+
+	protected override async Task OnInitializedAsync()
+	{
+		_items = await _repo.GetAllAsync();
+	}
+
+	private async Task DeleteModel(int id)
+	{
+		await _repo.DeleteAsync(id);
+
+		_items = await _repo.GetAllAsync();
+	}
+}
+

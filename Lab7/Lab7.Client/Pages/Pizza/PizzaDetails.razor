@@ -1,0 +1,45 @@
+﻿@using Lab7.Client.Services
+@using Lab7.Models
+@using Model = Lab7.Models.Pizza
+
+@page "/Pizza/Details/{id:int}"
+@namespace Lab7.Pages
+@inject IGenericClient<Model> _repo
+
+<h3>Details</h3>
+
+<div>
+	<h4>@typeof(Model).Name</h4>
+	<hr />
+	@if (_model is null)
+	{
+		<div>Loading...</div>
+	}
+	else
+	{
+		<dl class="row">
+			<dt class="col-sm-10">
+				@_model.Price
+			</dt>
+			<dt class="col-sm-10">
+				@_model.Description
+			</dt>
+		</dl>
+	}
+</div>
+<div>
+	<a class="btn btn-info" href="/@typeof(Model).Name/Edit/@_model?.Id">Edit</a> |
+	<a class="btn btn-info" href="/@typeof(Model).Name/List">Back to List</a>
+</div>
+
+@code {
+	[Parameter]
+	public int Id { get; set; }
+
+	private Model _model;
+
+	protected override async Task OnInitializedAsync()
+	{
+		_model = await _repo.GetAsync(Id);
+	}
+}
