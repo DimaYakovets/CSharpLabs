@@ -14,10 +14,12 @@ public partial class PizzaDeliveryContext : DbContext
     public PizzaDeliveryContext(DbContextOptions<PizzaDeliveryContext> options)
         : base(options)
     {
+        this.Database.EnsureCreated();
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
+
 }

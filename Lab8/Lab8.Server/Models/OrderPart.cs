@@ -16,7 +16,7 @@ namespace Lab8.Models
         [Required]
         public int Count { get; set; }
 
-        public  Order Order { get; set; } = null!;
-        public  Pizza Pizza { get; set; } = null!;
+        public  Order? Order { get; set; } = null!;
+        public  Pizza? Pizza { get; set; } = null!;
     }
 }

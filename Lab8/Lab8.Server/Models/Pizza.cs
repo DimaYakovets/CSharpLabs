@@ -12,6 +12,6 @@ namespace Lab8.Models
         [Required]
         public string Description { get; set; }
 
-        public ICollection<OrderPart> OrderParts { get; set; }
+        public ICollection<OrderPart>? OrderParts { get; set; }
     }
 }

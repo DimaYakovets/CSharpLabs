@@ -16,6 +16,6 @@ namespace Lab8.Models
         [Required]
         public int FlatNumber { get; set; }
 
-        public ICollection<Client> Clients { get; set; }
+        public ICollection<Client>? Clients { get; set; }
     }
 }

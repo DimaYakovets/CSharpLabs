@@ -12,7 +12,7 @@ namespace Lab8.Models
         [Required] 
         public int ClientId { get; set; }
 
-        public  Client Client { get; set; }
-        public  ICollection<OrderPart> OrderParts { get; set; }
+        public  Client? Client { get; set; }
+        public  ICollection<OrderPart>? OrderParts { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace Lab8.Models
         [Required]
         public int AddressId { get; set; }
 
-        public Address Address { get; set; }
-        public ICollection<Order> Orders { get; set; }
+        public Address? Address { get; set; }
+        public ICollection<Order>? Orders { get; set; }
     }
 }
